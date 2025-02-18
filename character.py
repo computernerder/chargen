@@ -1,4 +1,5 @@
 from constants import *
+from dice import *
 
 
 cc = CharacterConstants
@@ -40,6 +41,21 @@ class Character:
         for trait, value in self.combat.items():
             print(f"{trait.value}: {value}")
 
+    def set_attribute(self, attr: Attribute, value: int):
+        self.attributes[attr][0] = value
+
+
+    def set_character_attributes(self):
+        # Get Characters Values
+        values = Roller.initial_attributes_roll()
+
+        # Set Characters Attributes
+        for i, attr in enumerate(self.attributes):
+            self.attributes[attr][0] = values[i]
+
+
+
+
     
         
     # Character modification class
@@ -75,18 +91,24 @@ def main():
                        combat={CombatTraits.Armor_Class: 16, CombatTraits.Initiative: 0, CombatTraits.Speed: 30, CombatTraits.Hit_Points: 10, CombatTraits.Hit_Dice: Dice.d8, CombatTraits.Death_Saves: {"Successes": 0, "Failures": 0}},
                        background=Background.Noble,
                        alignment=Alignment.Lawful_Good)
-    # print(player)
+    
     player.list_attributes()
-    player.list_skills()
-    player.list_combat()
-    print(f"Player XP: {player.xp}")
-    print(f"{player.attributes[Attribute.Strength][0]}")
+    player.set_character_attributes()
+    player.list_attributes()
+    
+    
+    # # print(player)
+    # player.list_attributes()
+    # player.list_skills()
+    # player.list_combat()
+    # print(f"Player XP: {player.xp}")
+    # print(f"{player.attributes[Attribute.Strength][0]}")
 
-    player.Modify.add_xp(1000)
-    player.Modify.add_attribute(Attribute.Strength, 2)
+    # player.Modify.add_xp(1000)
+    # player.Modify.add_attribute(Attribute.Strength, 2)
 
-    print(f"Player XP: {player.xp}")
-    print(f"Strength:  {player.attributes[Attribute.Strength][0]}")
+    # print(f"Player XP: {player.xp}")
+    # print(f"Strength:  {player.attributes[Attribute.Strength][0]}")
 
 
 
